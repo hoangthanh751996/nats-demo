@@ -2,11 +2,8 @@
 // https://github.com/sendgrid/sendgrid-nodejs
 
 module.exports = (to, data) => {
-    console.log("To", to);
-    console.log("data", data);
     const sgMail = require('@sendgrid/mail');
     const config = require("./config");
-    console.log(config["sendgrid"]["SENDGRID_API_KEY"])
     sgMail.setApiKey(config["sendgrid"]["SENDGRID_API_KEY"]);
     const msg = {
         to,

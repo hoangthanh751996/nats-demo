@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const uuid = require("uuid");
 const userPrivate = require("./user.private");
-let users = [];
 
 // boostrap app
 const app = express();
@@ -24,7 +23,6 @@ app.post("/users", (req, res) => {
         if (!payload.email) throw new Error("Yêu cầu trường email");
         if (!payload.name) throw new Error("Yêu cầu trường name");
         if (!payload.password) throw new Error("Yêu cầu trường password");
-        const index = users.findIndex(u => u.email === payload.email);
         // if (index >= 0) throw new Error("Email đã tồn tại");
         let user = {
             ...payload,
@@ -32,7 +30,6 @@ app.post("/users", (req, res) => {
             created_time: new Date(),
             updated_time: new Date()
         };
-        users = users.concat([user]);
         userPrivate.sendEmail(JSON.stringify(user));
         return res.json(user);
     } catch (e) {
